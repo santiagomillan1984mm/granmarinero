@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gran Marinero · Sales y sazonadores artesanales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,600;0,700;1,500;1,600&family=Big+Shoulders+Display:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#071a2e; --navy2:#0c2a45; --sea:#0f4c6e; --gold:#e3b04b; --gold2:#f5d27a;
+  --cream:#fbf5ea; --sand:#efe4cf; --ink:#14202c; --muted:#5d6b78;
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.55}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:"Big Shoulders Display",sans-serif;font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:.95rem;color:var(--gold)}
+h2{font-family:"Zilla Slab",serif;font-weight:700;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.08;margin:.35em 0 .4em}
+.lead{color:var(--muted);max-width:620px;font-size:1.06rem}
+.btn{display:inline-flex;align-items:center;gap:.55em;font-family:"Big Shoulders Display",sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:1.1rem;padding:.9em 1.5em;border-radius:999px;border:0;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(227,176,75,.35)}
+.btn-gold:hover{background:var(--gold2)}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+.btn-wa{background:#25d366;color:#06301a}
+.btn-dark{background:var(--navy);color:#fff}
+
+/* NAV */
+nav{position:fixed;inset:0 0 auto 0;z-index:40;transition:background .25s,box-shadow .25s}
+nav.solid{background:rgba(7,26,46,.94);backdrop-filter:blur(8px);box-shadow:0 4px 20px rgba(0,0,0,.25)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px}
+nav .brand img{height:42px;width:auto}
+nav ul{display:flex;gap:28px;list-style:none}
+nav ul a{color:#fff;text-decoration:none;font-family:"Big Shoulders Display",sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:1rem;opacity:.85}
+nav ul a:hover{opacity:1;color:var(--gold2)}
+.cart-btn{position:relative;background:var(--gold);color:var(--navy);border:0;border-radius:999px;padding:.55em 1.1em;font-family:"Big Shoulders Display",sans-serif;letter-spacing:.08em;cursor:pointer;display:flex;align-items:center;gap:.5em;font-size:.95rem}
+.cart-btn .count{background:var(--navy);color:#fff;border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:.78rem;padding:0 6px}
+@media(max-width:820px){nav ul{display:none}}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;color:#fff;overflow:hidden;
+  background:radial-gradient(ellipse at 70% 20%,rgba(227,176,75,.25),transparent 55%),linear-gradient(180deg,#0b3557 0%,#071a2e 70%)}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:120px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0 60 C240 120 480 0 720 50 S1200 110 1440 40 V120 H0Z' fill='%23fbf5ea'/%3E%3C/svg%3E") bottom/100% 100% no-repeat}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;padding-top:110px;padding-bottom:140px;position:relative;z-index:2}
+.hero .logo{width:min(470px,90%);filter:drop-shadow(0 6px 20px rgba(0,0,0,.4))}
+.hero .tag{font-family:"Zilla Slab",serif;font-style:italic;font-size:clamp(1.4rem,2.6vw,2rem);color:var(--gold2);margin:18px 0 10px}
+.hero p.sub{color:#cfe0ee;max-width:480px;font-size:1.08rem;margin-bottom:28px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero .pics{position:relative;height:520px}
+.hero .pics img{position:absolute;width:56%;border-radius:22px;box-shadow:0 30px 60px rgba(0,0,0,.5);border:3px solid rgba(255,255,255,.08);object-fit:cover;aspect-ratio:1}
+.hero .pics img:nth-child(1){left:0;top:40px;transform:rotate(-7deg)}
+.hero .pics img:nth-child(2){right:0;top:0;transform:rotate(6deg)}
+.hero .pics img:nth-child(3){left:22%;top:150px;z-index:2;width:58%}
+.bubbles span{position:absolute;bottom:-40px;border-radius:50%;background:rgba(255,255,255,.08);animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-110vh)}}
+.badges{display:flex;gap:22px;flex-wrap:wrap;margin-top:34px;font-family:"Big Shoulders Display",sans-serif;letter-spacing:.1em;text-transform:uppercase;font-size:.82rem;color:#bcd2e4}
+.badges span::before{content:"⚓ ";color:var(--gold)}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;text-align:center}.hero .logo{margin:0 auto}.hero p.sub{margin:0 auto 28px}.hero .ctas,.badges{justify-content:center}.hero .pics{height:360px;max-width:440px;margin:0 auto;width:100%}}
+
+/* SECTIONS */
+section{padding:90px 0}
+.center{text-align:center}.center .lead{margin:0 auto}
+
+/* STORY */
+.story .wrap{max-width:820px;text-align:center}.story .lead{margin-left:auto;margin-right:auto}
+.story img{border-radius:var(--r);box-shadow:0 24px 50px rgba(7,26,46,.25)}
+.story .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:32px auto 0;max-width:600px}
+.story .fact{background:#fff;border-radius:14px;padding:16px;text-align:center;border:1px solid var(--sand)}
+.story .fact b{display:block;font-family:"Zilla Slab",serif;font-size:1.6rem;color:var(--sea)}
+.story .fact small{color:var(--muted);font-size:.82rem}
+@media(max-width:900px){.story .wrap{grid-template-columns:1fr}}
+
+/* PRODUCTS */
+.shop{background:var(--navy);color:#fff;position:relative}
+.shop .lead{color:#a9bfd2}
+.filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:30px 0 40px}
+.filters button{background:transparent;color:#cfe0ee;border:1.5px solid rgba(255,255,255,.2);border-radius:999px;padding:.5em 1.1em;cursor:pointer;font-family:"Big Shoulders Display",sans-serif;letter-spacing:.08em;text-transform:uppercase;font-size:.85rem}
+.filters button.on{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:26px}
+.card{background:var(--navy2);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.06);transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(0,0,0,.4)}
+.card .ph{position:relative;aspect-ratio:1;overflow:hidden;background:#111}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.card:hover .ph img{transform:scale(1.05)}
+.card .ph .chip{position:absolute;top:14px;left:14px;font-family:"Big Shoulders Display",sans-serif;letter-spacing:.1em;text-transform:uppercase;font-size:.72rem;padding:.35em .8em;border-radius:999px;color:#fff}
+.card .ph .order{position:absolute;top:14px;right:14px;background:rgba(7,26,46,.85);color:var(--gold2);font-size:.72rem;padding:.35em .75em;border-radius:999px;font-family:"Big Shoulders Display",sans-serif;letter-spacing:.08em}
+.card .body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
+.card .char{font-family:"Big Shoulders Display",sans-serif;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:.95rem}
+.card h3{font-family:"Zilla Slab",serif;font-size:1.55rem;margin:.15em 0 .3em}
+.card p{color:#b4c6d6;font-size:.95rem;flex:1}
+.heat{display:flex;gap:4px;align-items:center;margin:12px 0 4px;font-size:.78rem;color:#9fb5c8}
+.heat i{width:18px;height:6px;border-radius:3px;background:rgba(255,255,255,.12)}
+.heat i.f{background:var(--c)}
+.sizes{display:flex;gap:8px;margin:14px 0}
+.sizes button{flex:1;background:transparent;border:1.5px solid rgba(255,255,255,.18);color:#fff;border-radius:12px;padding:.55em .4em;cursor:pointer;font-family:"DM Sans";font-size:.86rem}
+.sizes button b{display:block;font-size:1.05rem}
+.sizes button.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 22%,transparent)}
+.add{width:100%;justify-content:center;background:var(--c);color:#fff}
+.add.dark{color:var(--navy)}
+
+/* SAL PURA */
+.pure{background:linear-gradient(180deg,var(--cream),var(--sand))}
+.pure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+.pcard{background:#fff;border-radius:var(--r);padding:28px;border:1px solid #e6d9bf;display:flex;flex-direction:column}
+.pcard .ic{font-size:2.2rem}
+.pcard h3{font-family:"Zilla Slab",serif;font-size:1.45rem;margin:.3em 0 .2em}
+.pcard p{color:var(--muted);font-size:.93rem;margin-bottom:16px}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:auto}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--sand);border-radius:12px;padding:.55em .7em .55em 1em}
+.opt span b{color:var(--sea)}
+.opt button{background:var(--navy);color:#fff;border:0;border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:1.2rem}
+@media(max-width:900px){.pure-grid{grid-template-columns:1fr}}
+
+/* RECIPES */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:30px 0}
+button{color:inherit}
+.tabs button{border-radius:999px;padding:.6em 1.2em;cursor:pointer;background:#fff;color:var(--navy);font-family:"Big Shoulders Display",sans-serif;font-weight:700;letter-spacing:.06em;font-size:1rem;border:1.5px solid var(--sand);transition:border-color .15s,color .15s}
+.tabs button:hover{border-color:var(--c);color:var(--c)}
+.tabs button.on,.tabs button.on:hover{background:var(--c);color:#fff;border-color:var(--c)}
+.recipe{display:grid;grid-template-columns:340px 1fr;gap:40px;align-items:center;background:#fff;border-radius:24px;padding:28px;box-shadow:0 20px 40px rgba(7,26,46,.08)}
+.recipe img{border-radius:16px;aspect-ratio:1;object-fit:cover}
+.recipe h3{font-family:"Zilla Slab",serif;font-size:1.8rem}
+.recipe ol{list-style:none;counter-reset:n;margin-top:14px;display:grid;gap:12px}
+.recipe li{counter-increment:n;display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:start}
+.recipe li::before{content:counter(n);width:34px;height:34px;border-radius:50%;background:var(--c);color:#fff;display:grid;place-items:center;font-family:'Big Shoulders Display'}
+.recipe li b{display:block}
+.recipe li span{color:var(--muted);font-size:.93rem}
+@media(max-width:820px){.recipe{grid-template-columns:1fr}.recipe img{max-width:280px;margin:0 auto}}
+
+/* SHIPPING */
+.ship{background:var(--sea);color:#fff}
+.ship .lead{color:#cfe3f0}
+.ship-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px}
+.scard{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:26px}
+.scard .ic{font-size:2rem}
+.scard h3{font-family:"Big Shoulders Display",sans-serif;letter-spacing:.06em;text-transform:uppercase;font-size:1.1rem;margin:.6em 0 .3em;color:var(--gold2)}
+.scard p{color:#d6e6f1;font-size:.93rem}
+@media(max-width:900px){.ship-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.ship-grid{grid-template-columns:1fr}}
+
+/* FAQ */
+details{background:#fff;border:1px solid var(--sand);border-radius:14px;padding:18px 22px;margin-bottom:12px}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between}
+summary::after{content:"+";color:var(--gold);font-size:1.4rem;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);margin-top:10px}
+
+/* FOOTER */
+footer{background:var(--navy);color:#a9bfd2;padding:60px 0 30px}
+footer .wrap{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px}
+footer img{height:80px;width:auto;margin-bottom:12px}
+footer h4{font-family:"Big Shoulders Display",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-size:.85rem;margin-bottom:12px}
+footer a{text-decoration:none}footer a:hover{color:#fff}
+footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:.82rem;text-align:center}
+@media(max-width:760px){footer .wrap{grid-template-columns:1fr}}
+
+/* CART */
+.overlay{position:fixed;inset:0;background:rgba(4,14,26,.55);opacity:0;pointer-events:none;transition:.25s;z-index:50}
+.overlay.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(440px,100%);background:var(--cream);z-index:60;transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;background:var(--navy);color:#fff}
+.dh h3{font-family:"Zilla Slab",serif;font-size:1.4rem}
+.dh button{background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer}
+.dbody{flex:1;overflow:auto;padding:18px 22px}
+.item{display:grid;grid-template-columns:60px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--sand)}
+.item img,.item .ph2{width:60px;height:60px;border-radius:10px;object-fit:cover;background:var(--sand);display:grid;place-items:center;font-size:1.5rem}
+.item small{color:var(--muted);display:block}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:26px;height:26px;border-radius:50%;border:1px solid #d7c8a8;background:#fff;cursor:pointer}
+.empty{text-align:center;color:var(--muted);padding:40px 0}
+.form{margin-top:18px;display:grid;gap:10px}
+.form label{font-size:.82rem;font-weight:600;color:var(--muted)}
+.form input,.form textarea{width:100%;padding:.7em .9em;border:1px solid #dccdae;border-radius:10px;font:inherit;background:#fff}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{border:1.5px solid #dccdae;background:#fff;border-radius:12px;padding:.7em;cursor:pointer;font:inherit;font-size:.88rem;text-align:left}
+.seg button b{display:block;font-size:.95rem}
+.seg button.on{border-color:var(--sea);background:#e6f0f6}
+.dfoot{padding:18px 22px;border-top:1px solid var(--sand);background:#fff}
+.tot{display:flex;justify-content:space-between;font-size:1.15rem;font-weight:600;margin-bottom:4px}
+.note{font-size:.8rem;color:var(--muted);margin-bottom:12px}
+.dfoot .btn{width:100%;justify-content:center;margin-top:8px}
+.msg{font-size:.85rem;background:#fff6dc;border:1px solid #f1d88f;border-radius:10px;padding:10px 12px;margin-top:10px;display:none}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--navy);color:#fff;padding:.8em 1.3em;border-radius:999px;z-index:70;transition:transform .3s,opacity .3s;font-size:.92rem;opacity:0}
+.toast.on{transform:translate(-50%,0);opacity:1}
+.wa-float{position:fixed;right:20px;bottom:20px;z-index:45;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 24px rgba(0,0,0,.3);text-decoration:none;font-size:1.7rem}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <a href="#inicio" class="brand"><img src="img/logo.png" alt="Gran Marinero"></a>
+    <ul>
+      <li><a href="#historia">Nosotros</a></li>
+      <li><a href="#tienda">Sazonadores</a></li>
+      <li><a href="#sal">Sal pura</a></li>
+      <li><a href="#recetas">Recetas</a></li>
+      <li><a href="#envios">Envíos</a></li>
+    </ul>
+    <button class="cart-btn" onclick="openCart()">🛒 Carrito <span class="count" id="count">0</span></button>
+  </div>
+</nav>
+
+<header class="hero" id="inicio">
+  <div class="bubbles" id="bubbles"></div>
+  <div class="wrap">
+    <div>
+      <img class="logo" src="img/logo.png" alt="Gran Marinero">
+      <div class="tag">Sumérgete a un mar de sabores</div>
+      <p class="sub">Sales artesanales y sazonadores con jamaica, cítricos, chapulín, chiltepín y hierbas finas. Hechos a mano en Baja California Sur para darle a tu comida el sabor del mar.</p>
+      <div class="ctas">
+        <a href="#tienda" class="btn btn-gold">Ver sabores →</a>
+        <a href="#recetas" class="btn btn-ghost">Cómo usarlas</a>
+      </div>
+      <div class="badges"><span>Artesanal</span><span>Ingredientes naturales</span><span>Envíos a todo México</span></div>
+    </div>
+    <div class="pics">
+      <img src="img/dragon.jpg" alt="Dragón de Mar, sal de cítricos">
+      <img src="img/pezdiablo.jpg" alt="Pez Diablo, sal con chiltepín">
+      <img src="img/medusa.jpg" alt="Medusa Gran Roja, sal con jamaica">
+    </div>
+  </div>
+</header>
+
+<section class="story" id="historia">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Sabor con alma del mar</div>
+      <h2>Una tripulación de sabores</h2>
+      <p class="lead">Cada frasco de Gran Marinero tiene su personaje del mar: una medusa, un dragón, un coral, un pez diablo, Cthulhu y una vaquita marina. Todos parten de sal de mar y la combinamos con ingredientes mexicanos de verdad.</p>
+      <p class="lead" style="margin-top:12px">Sirven para ceviches, aguachiles, cortes, fruta y para escarchar tu mezcal o tu michelada. Con una pizca el platillo ya sabe distinto.</p>
+      <div class="facts">
+        <div class="fact"><b>6</b><small>sazonadores</small></div>
+        <div class="fact"><b>100%</b><small>artesanal</small></div>
+        <div class="fact"><b>🇲🇽</b><small>hecho en BCS</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="shop" id="tienda">
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow">Tienda</div>
+      <h2>Elige tu sazonador</h2>
+      <p class="lead">Frascos de 60 g y presentaciones de 250 g. Los marcados como “sobre pedido” se preparan frescos y salen en 3 días.</p>
+    </div>
+    <div class="filters" id="filters">
+      <button class="on" data-f="all">Todos</button>
+      <button data-f="picante">Picantes</button>
+      <button data-f="mariscos">Para mariscos</button>
+      <button data-f="carnes">Para carnes</button>
+      <button data-f="bebidas">Para bebidas</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="pure" id="sal">
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow">Del mar a tu cocina</div>
+      <h2>Sal pura de mar</h2>
+      <p class="lead">Sal de mar sin mezclas. Hay presentaciones para tu casa y costales para restaurantes y negocios.</p>
+    </div>
+    <div class="pure-grid" id="pure"></div>
+  </div>
+</section>
+
+<section id="recetas">
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow">Ideas para tu cocina</div>
+      <h2>5 formas de disfrutar cada sabor</h2>
+      <p class="lead">Elige un sabor y te damos ideas para usarlo.</p>
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <div class="recipe" id="recipe"></div>
+  </div>
+</section>
+
+<section class="ship" id="envios">
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow" style="color:var(--gold2)">Envíos y pagos</div>
+      <h2>Llega a todo México</h2>
+      <p class="lead" style="margin:0 auto">Enviamos tus sazonadores por paquetería a todo el país, o te los entregamos en persona si estás en la zona.</p>
+    </div>
+    <div class="ship-grid">
+      <div class="scard"><div class="ic">📦</div><h3>Envío nacional</h3><p>Paquetería a cualquier estado. Te mandamos tu número de guía por WhatsApp.</p></div>
+      <div class="scard"><div class="ic">🛵</div><h3>Entrega local</h3><p>Entrega a domicilio o en punto de encuentro. Coordinamos día y hora contigo.</p></div>
+      <div class="scard"><div class="ic">💳</div><h3>Pago en línea</h3><p>Paga con tarjeta de crédito o débito de forma segura.</p></div>
+      <div class="scard"><div class="ic">💬</div><h3>Pedido por WhatsApp</h3><p>Arma tu carrito y mándanos tu pedido. Puedes pagar por transferencia o en efectivo al recibir.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap" style="max-width:820px">
+    <div class="center"><div class="eyebrow">Preguntas</div><h2>Preguntas frecuentes</h2></div>
+    <details><summary>¿Cuánto tarda mi pedido?</summary><p>Los sabores en existencia salen en 1 a 2 días hábiles. Las sales de cítricos, jamaica y chapulín se hacen sobre pedido y tardan 3 días en prepararse. La paquetería tarda de 2 a 5 días hábiles más, según tu ciudad.</p></details>
+    <details><summary>¿Cuánto cuesta el envío?</summary><p>Depende de tu código postal y del tamaño del pedido. Te lo confirmamos por WhatsApp antes de enviar.</p></details>
+    <details><summary>¿Pican mucho?</summary><p>Solo Pez Diablo (chiltepín) y Coral de Fuego (chapulín con chile) pican. Medusa, Dragón de Mar, Cthulhu y Vaquita Marina no pican.</p></details>
+    <details><summary>¿Venden por mayoreo o a restaurantes?</summary><p>Sí. Tenemos costales de 10, 25 y 50 kg de sal de Colima, y precios especiales en sazonadores para restaurantes, bares y tiendas. Escríbenos por WhatsApp.</p></details>
+    <details><summary>¿Cuánto duran?</summary><p>Si los guardas bien cerrados y en un lugar seco, conservan su sabor por meses. Es sal, así que no se echa a perder.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <img src="img/logo-full.png" alt="Gran Marinero">
+      <p>Sumérgete a un mar de sabores. Sales y sazonadores artesanales hechos en Baja California Sur.</p>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <p><a href="https://wa.me/526121500792" target="_blank" rel="noopener">WhatsApp: 612 150 0792</a></p>
+      <p>Envíos a todo México</p>
+    </div>
+    <div>
+      <h4>Tienda</h4>
+      <p><a href="#tienda">Sazonadores</a></p>
+      <p><a href="#sal">Sal pura</a></p>
+      <p><a href="#recetas">Recetas</a></p>
+    </div>
+    <div class="copy">© 2026 Gran Marinero · Todos los derechos reservados</div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/526121500792?text=Hola%20Gran%20Marinero%2C%20quiero%20informes" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer" aria-label="Carrito">
+  <div class="dh"><h3>Tu pedido</h3><button onclick="closeCart()" aria-label="Cerrar">×</button></div>
+  <div class="dbody">
+    <div id="items"></div>
+    <div class="form" id="form">
+      <label>¿Cómo lo quieres recibir?</label>
+      <div class="seg" id="deliv">
+        <button class="on" data-d="nacional"><b>📦 Envío nacional</b>Paquetería</button>
+        <button data-d="local"><b>🛵 Entrega local</b>En la zona</button>
+      </div>
+      <label for="fname">Nombre</label><input id="fname" placeholder="Tu nombre">
+      <label for="fcity">Ciudad y código postal</label><input id="fcity" placeholder="Ej. La Paz, BCS 23000">
+      <label for="faddr">Dirección o punto de entrega</label><textarea id="faddr" rows="2" placeholder="Calle, número, colonia"></textarea>
+    </div>
+  </div>
+  <div class="dfoot">
+    <div class="tot"><span>Subtotal</span><span id="sub">$0</span></div>
+    <div class="note">El costo de envío se confirma según tu código postal.</div>
+    <button class="btn btn-dark" onclick="payOnline()">💳 Pagar en línea</button>
+    <button class="btn btn-wa" onclick="sendWA()">💬 Pedir por WhatsApp</button>
+    <div class="msg" id="msg"></div>
+  </div>
+</aside>
+<div class="toast" id="toast"></div>
+
+<script>
+const WA = "526121500792";
+// Cuando tengan su liga de cobro (Mercado Pago / Stripe), pégala aquí:
+const PAGO_LINK = "";
+
+const P = [
+  {id:"medusa", char:"Medusa Gran Roja", name:"Sal con extracto de jamaica", color:"#c0254a", img:"img/medusa.jpg", heat:0, order:true, tags:["mariscos","bebidas"],
+   desc:"Sal color rubí con flor de jamaica. Es ácida y floral, y sirve para escarchar cócteles y para darle vida a ceviches y camarones.",
+   sizes:[["60 g",100],["250 g",300]],
+   uses:[["Escarcha de cócteles","Margaritas, palomas y micheladas con borde rojo."],["Ceviches y aguachiles","Una pizca al final le da color y acidez."],["Fruta fresca","Sobre mango, pepino, jícama o sandía."],["Camarones al ajillo","Espolvoréala justo antes de servir."],["Mezcal","Úsala como sal para acompañar el mezcal con naranja."]]},
+  {id:"dragon", char:"Dragón de Mar", name:"Sal de cítricos", color:"#e0a91c", dark:true, img:"img/dragon.jpg", heat:0, order:true, tags:["mariscos","bebidas"],
+   desc:"Sal con ralladura de limón y naranja. Fresca y brillante, va muy bien con pescados, ensaladas y bebidas.",
+   sizes:[["60 g",100],["250 g",350]],
+   uses:[["Pescado a la parrilla","Dorado, robalo o salmón con un toque cítrico."],["Ensaladas","En lugar de sal común, sobre hojas verdes y aguacate."],["Tequila y mezcal","Una escarcha más aromática que la sal sola."],["Mariscos","Ostiones, almejas y tostadas de atún."],["Postres","Sobre chocolate amargo o caramelo."]]},
+  {id:"coral", char:"Coral de Fuego", name:"Sal con chapulín, ajo y chile", color:"#d1442f", img:"img/coral.jpg", heat:2, order:true, tags:["picante","carnes","bebidas"],
+   desc:"Sal con chapulín tostado, ajo y chile. Tiene un sabor ahumado y algo crujiente, muy oaxaqueño, con picor medio.",
+   sizes:[["60 g",100],["250 g",350]],
+   uses:[["Mezcal con naranja","El clásico: gajo de naranja con sal de chapulín."],["Guacamole","Un toque crujiente y ahumado encima."],["Tacos y quesadillas","Sobre carne asada o queso fundido."],["Elotes y esquites","En lugar del chile en polvo."],["Cortes","Para terminar arrachera o picaña."]]},
+  {id:"pezdiablo", char:"Pez Diablo", name:"Sal con chile chiltepín", color:"#e2382a", img:"img/pezdiablo.jpg", heat:3, order:false, tags:["picante","mariscos","bebidas"],
+   desc:"El picante artesanal de Baja. Sal con chiltepín, que pica fuerte y se quita rápido. Ideal para ceviches y aguachiles.",
+   sizes:[["60 g",100]],
+   uses:[["Aguachile","Camarón, limón, pepino y Pez Diablo."],["Ceviche","Ajusta el picante a tu gusto."],["Fruta con limón","Mango, piña y pepino con un buen picor."],["Cerveza preparada","Escarcha la orilla del tarro."],["Palomitas y botanas","Cacahuates, papitas y palomitas."]]},
+  {id:"cthulhu", char:"Cthulhu", name:"Sal con mezcla de hierbas finas", color:"#3ea86a", img:"img/cthulhu.jpg", heat:0, order:false, tags:["carnes","mariscos"],
+   desc:"Sal con hierbas finas. Tiene un aroma herbal y fresco que le queda bien a casi todo, desde pollo hasta pan con aceite de oliva.",
+   sizes:[["60 g",100],["250 g",250]],
+   uses:[["Pollo a las finas hierbas","Pechugas o muslos al horno con mantequilla y limón."],["Pescados y mariscos","Salmón, dorado o camarón a la parrilla."],["Papas y vegetales","Papas cambray, espárragos o calabacitas al horno."],["Cortes a la parrilla","Rib eye, New York y chuletas."],["Pan y aceite de oliva","Sobre focaccia o tostadas para botanear."]]},
+  {id:"vaquita", char:"Vaquita Marina", name:"Sazonador para carnes", color:"#f06a1f", img:"img/vaquita.jpg", heat:1, order:false, tags:["carnes"],
+   desc:"Mezcla de sal y especias para la parrilla. Le da sabor a cada corte, de la arrachera a las costillas.",
+   sizes:[["60 g",100],["250 g",250]],
+   uses:[["Carne asada","Arrachera, diezmillo o rib eye directo al carbón."],["Hamburguesas","Mézclala con la carne molida."],["Costillas","Úsala de base para costillas al horno."],["Pollo asado","Con un chorrito de aceite antes de asar."],["Verduras a la parrilla","Cebollitas, nopales y elotes."]]}
+];
+const PURE = [
+  {id:"flor", ic:"❄️", name:"Flor de sal", desc:"Los cristales más finos de la salina, crujientes y delicados. Úsala para terminar platillos.", sizes:[["250 g",120],["500 g",170],["1 kg",350]]},
+  {id:"cuyutlan", ic:"🌊", name:"Sal Marina Gourmet de Cuyutlán", desc:"Sal de mar tradicional de Colima, de sabor limpio. Sirve para la cocina de todos los días.", sizes:[["1 kg",220]]},
+  {id:"costal", ic:"🧺", name:"Costales de sal de Colima", desc:"Para restaurantes, negocios o quien la usa en cantidad.", sizes:[["10 kg",600],["25 kg",950],["50 kg",1400]]}
+];
+
+const money = n => "$" + n.toLocaleString("es-MX");
+let cart = [];
+try{ cart = JSON.parse(localStorage.getItem("gm_cart")||"[]") }catch(e){}
+const save = () => { try{localStorage.setItem("gm_cart",JSON.stringify(cart))}catch(e){} };
+const sel = {};
+
+function renderGrid(f="all"){
+  const g = document.getElementById("grid");
+  g.innerHTML = P.filter(p=>f==="all"||p.tags.includes(f)).map(p=>{
+    const s = sel[p.id] ?? 0;
+    return `<article class="card" style="--c:${p.color}">
+      <div class="ph"><img src="${p.img}" alt="${p.char}">
+        <span class="chip" style="background:${p.color}">${p.heat? "🌶".repeat(p.heat):"Sin picante"}</span>
+        ${p.order?'<span class="order">Sobre pedido · 3 días</span>':''}</div>
+      <div class="body">
+        <div class="char" style="color:${p.color}">${p.char}</div>
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="heat">Picor ${[0,1,2,3].map(i=>`<i class="${i<p.heat?'f':''}"></i>`).join("")}</div>
+        <div class="sizes">${p.sizes.map((z,i)=>`<button class="${i===s?'on':''}" onclick="pick('${p.id}',${i})">${z[0]}<b>${money(z[1])}</b></button>`).join("")}</div>
+        <button class="btn add ${p.dark?'dark':''}" onclick="addP('${p.id}')">Agregar al carrito</button>
+      </div></article>`;
+  }).join("");
+}
+let curF="all";
+function pick(id,i){ sel[id]=i; renderGrid(curF); }
+document.getElementById("filters").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  document.querySelectorAll("#filters button").forEach(x=>x.classList.toggle("on",x===b));
+  curF=b.dataset.f; renderGrid(curF);
+});
+
+function renderPure(){
+  document.getElementById("pure").innerHTML = PURE.map(p=>`<div class="pcard"><div class="ic">${p.ic}</div><h3>${p.name}</h3><p>${p.desc}</p>
+    <div class="opts">${p.sizes.map((z,i)=>`<div class="opt"><span>${z[0]} · <b>${money(z[1])}</b></span><button onclick="addPure('${p.id}',${i})" aria-label="Agregar">+</button></div>`).join("")}</div></div>`).join("");
+}
+
+function add(key,name,size,price,img){
+  const it = cart.find(c=>c.key===key);
+  if(it) it.q++; else cart.push({key,name,size,price,img,q:1});
+  save(); renderCart(); toast(`${name} (${size}) agregado`);
+}
+function addP(id){ const p=P.find(x=>x.id===id), i=sel[id]??0, z=p.sizes[i]; add(id+"-"+i, p.char+" · "+p.name, z[0], z[1], p.img); }
+function addPure(id,i){ const p=PURE.find(x=>x.id===id), z=p.sizes[i]; add(id+"-"+i, p.name, z[0], z[1], null); }
+function chg(key,d){ const it=cart.find(c=>c.key===key); if(!it) return; it.q+=d; if(it.q<=0) cart=cart.filter(c=>c!==it); save(); renderCart(); }
+const subtotal = () => cart.reduce((s,c)=>s+c.price*c.q,0);
+
+function renderCart(){
+  document.getElementById("count").textContent = cart.reduce((s,c)=>s+c.q,0);
+  document.getElementById("sub").textContent = money(subtotal());
+  document.getElementById("items").innerHTML = cart.length ? cart.map(c=>`<div class="item">
+    ${c.img?`<img src="${c.img}" alt="">`:'<div class="ph2">🧂</div>'}
+    <div><b>${c.name}</b><small>${c.size} · ${money(c.price)}</small></div>
+    <div class="qty"><button onclick="chg('${c.key}',-1)">−</button>${c.q}<button onclick="chg('${c.key}',1)">+</button></div></div>`).join("")
+    : '<div class="empty">Tu carrito está vacío.<br>¡Elige un sabor!</div>';
+}
+
+let deliv="nacional";
+document.getElementById("deliv").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  deliv=b.dataset.d; document.querySelectorAll("#deliv button").forEach(x=>x.classList.toggle("on",x===b));
+});
+
+function orderText(pay){
+  const v=id=>document.getElementById(id).value.trim();
+  let t="¡Hola Gran Marinero! 🧂⚓ Quiero hacer este pedido:\n\n";
+  cart.forEach(c=>t+=`• ${c.q} x ${c.name} (${c.size}) — ${money(c.price*c.q)}\n`);
+  t+=`\nSubtotal: ${money(subtotal())}\n`;
+  t+=`Entrega: ${deliv==="nacional"?"Envío nacional por paquetería":"Entrega local"}\n`;
+  if(v("fname")) t+=`Nombre: ${v("fname")}\n`;
+  if(v("fcity")) t+=`Ciudad / CP: ${v("fcity")}\n`;
+  if(v("faddr")) t+=`Dirección: ${v("faddr")}\n`;
+  t+=`Pago: ${pay}`;
+  return t;
+}
+function showMsg(m){ const el=document.getElementById("msg"); el.textContent=m; el.style.display="block"; }
+function goWA(text){
+  const url="https://wa.me/"+WA+"?text="+encodeURIComponent(text);
+  const a=document.createElement("a"); a.href=url; a.target="_blank"; a.rel="noopener"; document.body.appendChild(a); a.click(); a.remove();
+}
+function sendWA(){
+  if(!cart.length) return showMsg("Agrega al menos un producto a tu carrito.");
+  goWA(orderText("Transferencia o efectivo (por confirmar)"));
+}
+function payOnline(){
+  if(!cart.length) return showMsg("Agrega al menos un producto a tu carrito.");
+  if(PAGO_LINK){ const a=document.createElement("a"); a.href=PAGO_LINK; a.target="_blank"; a.rel="noopener"; document.body.appendChild(a); a.click(); a.remove(); return; }
+  showMsg("Te enviamos tu liga de pago con tarjeta por WhatsApp, junto con el costo de envío.");
+  goWA(orderText("Con tarjeta en línea. Por favor envíenme la liga de pago 💳"));
+}
+
+function openCart(){ document.getElementById("drawer").classList.add("on"); document.getElementById("overlay").classList.add("on"); }
+function closeCart(){ document.getElementById("drawer").classList.remove("on"); document.getElementById("overlay").classList.remove("on"); }
+let tt; function toast(m){ const t=document.getElementById("toast"); t.textContent="✓ "+m; t.classList.add("on"); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove("on"),1800); }
+
+function renderTabs(id){
+  const p=P.find(x=>x.id===id);
+  document.getElementById("tabs").innerHTML=P.map(x=>`<button style="--c:${x.color}" class="${x.id===id?'on':''}" onclick="renderTabs('${x.id}')">${x.char}</button>`).join("");
+  const r=document.getElementById("recipe"); r.style.setProperty("--c",p.color);
+  r.innerHTML=`<img src="${p.img}" alt="${p.char}"><div><div class="eyebrow" style="color:${p.color}">${p.char}</div><h3>${p.name}</h3>
+    <ol>${p.uses.map(u=>`<li><div><b>${u[0]}</b><span>${u[1]}</span></div></li>`).join("")}</ol>
+    <button class="btn add ${p.dark?'dark':''}" style="--c:${p.color};width:auto;margin-top:20px" onclick="addP('${p.id}')">Agregar ${p.char} · ${money(p.sizes[0][1])}</button></div>`;
+}
+
+// burbujas
+const bb=document.getElementById("bubbles");
+for(let i=0;i<18;i++){const s=document.createElement("span");const z=6+Math.random()*22;s.style.cssText=`left:${Math.random()*100}%;width:${z}px;height:${z}px;animation-duration:${9+Math.random()*12}s;animation-delay:${-Math.random()*15}s`;bb.appendChild(s);}
+const nav=document.getElementById("nav");
+addEventListener("scroll",()=>nav.classList.toggle("solid",scrollY>40));
+
+renderGrid(); renderPure(); renderCart(); renderTabs("medusa");
+</script>
+</body>
+</html>
