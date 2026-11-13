@@ -191,14 +191,14 @@ footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-
 /* OLAS ANIMADAS */
 .sea{position:relative;height:90px;background:var(--bg);margin:-1px 0;overflow:hidden;line-height:0}
 .sea svg{position:absolute;left:0;bottom:0;width:100%;height:100%}
-.hero .sea{position:absolute;left:0;right:0;bottom:0;background:transparent;z-index:1;height:120px}
+.hero .sea{position:absolute;left:0;right:0;bottom:0;background:transparent;z-index:1;height:80px}
 .para>use{animation:ola 22s cubic-bezier(.55,.5,.45,.5) infinite}
 .para>use:nth-child(1){animation-delay:-2s;animation-duration:9s}
 .para>use:nth-child(2){animation-delay:-3s;animation-duration:13s}
 .para>use:nth-child(3){animation-delay:-4s;animation-duration:17s}
 .para>use:nth-child(4){animation-delay:-5s;animation-duration:24s}
 @keyframes ola{0%{transform:translate3d(-90px,0,0)}100%{transform:translate3d(85px,0,0)}}
-@media(max-width:700px){.sea{height:55px}.hero .sea{height:70px}}
+@media(max-width:700px){.sea{height:55px}.hero .sea{height:50px}}
 @media(prefers-reduced-motion:reduce){.para>use,.hero .pics img,.bubbles span{animation:none}}
 /* frascos flotando */
 @keyframes flota{0%,100%{translate:0 0}50%{translate:0 -14px}}
@@ -244,6 +244,26 @@ footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-
 .ring-shadow{display:none}
 @media(max-width:900px){.bg-sea .moon{left:auto;right:8%;top:80px;width:70px;height:70px}.bg-sea .glow{display:none}.ring{max-width:270px;margin:0 auto;gap:10px 9px}.jar3d{border-radius:12px}.jar3d span{font-size:.55rem;letter-spacing:0}.jar3d:nth-child(2),.jar3d:nth-child(5){margin-top:22px;margin-bottom:-22px}}
 @media(prefers-reduced-motion:reduce){.jar3d{animation:none;opacity:1}.ring,.ring-wrap,}
+
+
+/* PORTADA CENTRADA */
+.hero .wrap{grid-template-columns:1fr!important;text-align:center;justify-items:center;padding-top:110px;padding-bottom:140px}
+.hero .logo{margin:0 auto;width:min(420px,78%)}
+.hero p.sub{margin:0 auto 24px;max-width:560px}
+.hero .ctas,.badges{justify-content:center}
+.hero .intro>*{opacity:0;animation:sube .9s ease forwards}
+.hero .intro>*:nth-child(1){animation-delay:.1s}.hero .intro>*:nth-child(2){animation-delay:.35s}.hero .intro>*:nth-child(3){animation-delay:.55s}.hero .intro>*:nth-child(4){animation-delay:.75s}.hero .intro>*:nth-child(5){animation-delay:.95s}
+@keyframes sube{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.boat{position:absolute;bottom:23%;left:0;width:110px;z-index:2;animation:navega 38s linear infinite}
+.boat svg{width:100%;display:block;animation:balancea 3.2s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes navega{from{transform:translateX(-140px)}to{transform:translateX(calc(100vw + 40px))}}
+@keyframes balancea{0%,100%{rotate:-6deg;translate:0 0}50%{rotate:5deg;translate:0 6px}}
+.bg-sea .layer:nth-of-type(n+3){z-index:3}
+.bg-sea .moon{left:auto!important;right:14%;top:90px}
+.gulls{position:absolute;top:120px;left:12%;color:rgba(251,245,234,.55);font-size:22px;letter-spacing:10px;animation:vuela 14s ease-in-out infinite}
+@keyframes vuela{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,-20px)}}
+@media(max-width:900px){.hero .wrap{padding-top:96px;padding-bottom:130px}.boat{width:72px;bottom:20%}.gulls{top:90px;left:6%;font-size:16px}}
+@media(prefers-reduced-motion:reduce){.boat,.boat svg,.gulls,.hero .intro>*{animation:none;opacity:1}}
 
 /* CART */
 .overlay{position:fixed;inset:0;background:rgba(4,14,26,.55);opacity:0;pointer-events:none;transition:.25s;z-index:50}
@@ -296,22 +316,19 @@ footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-
 
 <header class="hero" id="inicio">
   <div class="bubbles" id="bubbles"></div>
-  <div class="bg-sea" aria-hidden="true"><div class="moon"></div><div class="glow"></div><div class="bob"><div class="layer" style="--h:58%;--b:-4%;--t:26s;--o:.55"><svg viewBox="0 0 2880 200" preserveAspectRatio="none"><path fill="#10456b" d="M0 82 Q 360 118 720 82 Q 1080 46 1440 82 Q 1800 118 2160 82 Q 2520 46 2880 82 V200 H0Z"/></svg></div><div class="layer rev" style="--h:46%;--b:-4%;--t:19s;--o:.7"><svg viewBox="0 0 2880 200" preserveAspectRatio="none"><path fill="#0d3a5c" d="M0 78 Q 360 122 720 78 Q 1080 34 1440 78 Q 1800 122 2160 78 Q 2520 34 2880 78 V200 H0Z"/></svg></div><div class="layer" style="--h:34%;--b:-4%;--t:14s;--o:.85"><svg viewBox="0 0 2880 200" preserveAspectRatio="none"><path fill="#0b3050" d="M0 74 Q 360 126 720 74 Q 1080 22 1440 74 Q 1800 126 2160 74 Q 2520 22 2880 74 V200 H0Z"/></svg></div><div class="layer rev" style="--h:22%;--b:-4%;--t:10s;--o:.95"><svg viewBox="0 0 2880 200" preserveAspectRatio="none"><path fill="#082640" d="M0 70 Q 360 130 720 70 Q 1080 10 1440 70 Q 1800 130 2160 70 Q 2520 10 2880 70 V200 H0Z"/></svg></div></div></div>
+  <div class="bg-sea" aria-hidden="true"><div class="moon"></div><div class="gulls">︶ ︶</div><div class="bob"><div class="boat"><svg viewBox="0 0 120 100" aria-hidden="true"><path d="M58 8 L58 70 L18 70 Z" fill="#fbf5ea" opacity=".95"/><path d="M62 18 L62 70 L96 70 Z" fill="#e3b04b"/><rect x="58" y="6" width="4" height="66" fill="#fbf5ea"/><path d="M8 72 H112 L98 92 H22 Z" fill="#0a1d33"/><path d="M8 72 H112 L109 77 H11 Z" fill="#e3b04b"/></svg></div><div class="layer" style="--h:58%;--b:-4%;--t:26s;--o:.55"><svg viewBox="0 0 2880 200" preserveAspectRatio="none"><path fill="#10456b" d="M0 82 Q 360 118 720 82 Q 1080 46 1440 82 Q 1800 118 2160 82 Q 2520 46 2880 82 V200 H0Z"/></svg></div><div class="layer rev" style="--h:46%;--b:-4%;--t:19s;--o:.7"><svg viewBox="0 0 2880 200" preserveAspectRatio="none"><path fill="#0d3a5c" d="M0 78 Q 360 122 720 78 Q 1080 34 1440 78 Q 1800 122 2160 78 Q 2520 34 2880 78 V200 H0Z"/></svg></div><div class="layer" style="--h:34%;--b:-4%;--t:14s;--o:.85"><svg viewBox="0 0 2880 200" preserveAspectRatio="none"><path fill="#0b3050" d="M0 74 Q 360 126 720 74 Q 1080 22 1440 74 Q 1800 126 2160 74 Q 2520 22 2880 74 V200 H0Z"/></svg></div><div class="layer rev" style="--h:22%;--b:-4%;--t:10s;--o:.95"><svg viewBox="0 0 2880 200" preserveAspectRatio="none"><path fill="#082640" d="M0 70 Q 360 130 720 70 Q 1080 10 1440 70 Q 1800 130 2160 70 Q 2520 10 2880 70 V200 H0Z"/></svg></div></div></div>
   <div class="sea" aria-hidden="true"><svg viewBox="0 24 150 28" preserveAspectRatio="none"><g class="para"><use href="#gm-ola" x="48" y="0" fill="#fbf5ea" fill-opacity="0.7"/><use href="#gm-ola" x="48" y="3" fill="#fbf5ea" fill-opacity="0.5"/><use href="#gm-ola" x="48" y="5" fill="#fbf5ea" fill-opacity="0.3"/><use href="#gm-ola" x="48" y="7" fill="#fbf5ea" fill-opacity="1"/></g></svg></div>
   <div class="wrap">
-    <div>
+
+    <div class="intro">
       <img class="logo" src="img/logo.png" alt="Gran Marinero">
       <div class="tag">Sumérgete a un mar de sabores</div>
-      <p class="sub">Sales artesanales y sazonadores con jamaica, cítricos, chapulín, chiltepín y hierbas finas. Hechos a mano en Baja California Sur para darle a tu comida el sabor del mar.</p>
+      <p class="sub">Seis sazonadores artesanales hechos con sal de mar, para mariscos, carnes, fruta y cócteles.</p>
       <div class="ctas">
         <a href="#tienda" class="btn btn-gold">Ver sabores →</a>
         <a href="#recetas" class="btn btn-ghost">Cómo usarlas</a>
       </div>
       <div class="badges"><span>Artesanal</span><span>Ingredientes naturales</span><span>Envíos a todo México</span></div>
-    </div>
-    <div class="ring-wrap" aria-label="Los seis sazonadores">
-      <div class="ring" id="ring"></div>
-      <div class="ring-shadow"></div>
     </div>
   </div>
 </header>
@@ -613,7 +630,6 @@ for(let i=0;i<18;i++){const s=document.createElement("span");const z=6+Math.rand
 const nav=document.getElementById("nav");
 addEventListener("scroll",()=>nav.classList.toggle("solid",scrollY>40));
 
-document.getElementById("ring").innerHTML=P.map((p,i)=>`<a href="#${p.id}" onclick="openProd('${p.id}');return false" class="jar3d ${p.dark?'dk':''}" style="--i:${i};--c:${p.color}"><img src="${p.img}" alt="${p.char}"><span>${p.char.replace("Gran Roja","Roja").replace("Vaquita Marina","Vaquita")}</span></a>`).join("");
 renderGrid();
 if(location.hash&&P.some(x=>"#"+x.id===location.hash)) setTimeout(()=>openProd(location.hash.slice(1)),300); renderPure(); renderCart(); renderTabs("medusa");
 </script>
