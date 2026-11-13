@@ -199,7 +199,7 @@ footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-
 .para>use:nth-child(4){animation-delay:-5s;animation-duration:24s}
 @keyframes ola{0%{transform:translate3d(-90px,0,0)}100%{transform:translate3d(85px,0,0)}}
 @media(max-width:700px){.sea{height:55px}.hero .sea{height:50px}}
-@media(prefers-reduced-motion:reduce){.para>use,.hero .pics img,.bubbles span{animation:none}}
+@media(prefers-reduced-motion:reduce){.bubbles span{animation:none}}
 /* frascos flotando */
 @keyframes flota{0%,100%{translate:0 0}50%{translate:0 -14px}}
 .hero .pics img{animation:flota 6s ease-in-out infinite}
@@ -226,7 +226,6 @@ footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-
 @keyframes marea{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .bg-sea .bob{position:absolute;inset:0}
 @keyframes oleaje{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
-@media(prefers-reduced-motion:reduce){.bg-sea *{animation:none!important}}
 /* LOS 6 SAZONADORES FLOTANDO EN EL MAR */
 .ring-wrap{position:relative}
 .ring{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 14px;max-width:390px;margin-left:auto;margin-right:20px}
@@ -244,7 +243,6 @@ footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-
 @keyframes boya{0%,100%{translate:0 0;rotate:-2.5deg}50%{translate:0 -12px;rotate:2.5deg}}
 .ring-shadow{display:none}
 @media(max-width:900px){.bg-sea .moon{left:auto;right:8%;top:80px;width:70px;height:70px}.bg-sea .glow{display:none}.ring{max-width:270px;margin:0 auto;gap:10px 9px}.jar3d{border-radius:12px}.jar3d span{font-size:.55rem;letter-spacing:0}.jar3d:nth-child(2),.jar3d:nth-child(5){margin-top:22px;margin-bottom:-22px}}
-@media(prefers-reduced-motion:reduce){.jar3d{animation:none;opacity:1}.ring,.ring-wrap,}
 
 
 /* PORTADA CENTRADA */
