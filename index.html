@@ -58,7 +58,7 @@ nav ul a:hover{opacity:1;color:var(--gold2)}
 @keyframes rise{to{transform:translateY(-110vh)}}
 .badges{display:flex;gap:8px 20px;flex-wrap:wrap;margin-top:22px;font-family:"Big Shoulders Display",sans-serif;letter-spacing:.1em;text-transform:uppercase;font-size:.82rem;color:#bcd2e4}
 .badges span::before{content:"⚓ ";color:var(--gold)}
-@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;text-align:center}.hero .logo{margin:0 auto}.hero p.sub{margin:0 auto 28px}.hero .ctas,.badges{justify-content:center}.hero .pics{height:250px;max-width:340px;margin:0 auto;width:100%}.hero .wrap{padding-top:86px;padding-bottom:70px;gap:24px}.hero .logo{width:min(300px,80%)}.badges{display:none}.hero .ctas{flex-wrap:nowrap;gap:10px}.hero .ctas .btn{padding:.75em 1.05em;font-size:.98rem}.hero p.sub{font-size:.97rem}}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;text-align:center}.hero .logo{margin:0 auto}.hero p.sub{margin:0 auto 28px}.hero .ctas,.badges{justify-content:center}.ring-wrap{padding-bottom:20px}.hero .wrap{padding-top:86px;padding-bottom:70px;gap:24px}.hero .logo{width:min(300px,80%)}.badges{display:none}.hero .ctas{flex-wrap:nowrap;gap:10px}.hero .ctas .btn{padding:.75em 1em;font-size:.95rem;white-space:nowrap}.hero p.sub{font-size:.97rem}}
 
 /* SECTIONS */
 section{padding:70px 0 90px}
@@ -176,13 +176,46 @@ footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-
 .hero .pics img:nth-child(2){animation-delay:-2s}
 .hero .pics img:nth-child(3){animation-delay:-4s}
 /* brillo del sol sobre el mar */
-.hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(100deg,transparent 0 80px,rgba(255,255,255,.025) 80px 160px);animation:brillo 14s linear infinite;pointer-events:none}
-@keyframes brillo{to{background-position:640px 0}}
 /* ancla separadora */
 .anchor-div{display:flex;align-items:center;gap:14px;justify-content:center;color:var(--gold);margin:6px auto 0;max-width:260px}
 .anchor-div::before,.anchor-div::after{content:"";flex:1;height:1.5px;background:repeating-linear-gradient(90deg,currentColor 0 6px,transparent 6px 10px);opacity:.7}
 .anchor-div span{display:inline-block;animation:mece 4s ease-in-out infinite;transform-origin:50% 0}
 @keyframes mece{0%,100%{rotate:-8deg}50%{rotate:8deg}}
+
+
+/* RAYOS DE SOL BAJO EL AGUA + CÁUSTICAS */
+.hero::before{content:"";position:absolute;left:-20%;right:-20%;top:-10%;height:120%;pointer-events:none;
+  background:repeating-conic-gradient(from 168deg at 50% -8%,rgba(190,230,255,.07) 0 2.2deg,transparent 2.2deg 7deg);
+  -webkit-mask:linear-gradient(180deg,#000 0%,rgba(0,0,0,.55) 45%,transparent 85%);mask:linear-gradient(180deg,#000 0%,rgba(0,0,0,.55) 45%,transparent 85%);
+  transform-origin:50% -8%;animation:rayos 11s ease-in-out infinite alternate}
+@keyframes rayos{from{transform:rotate(-3.5deg)}to{transform:rotate(3.5deg)}}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;mix-blend-mode:screen;
+  background:
+   radial-gradient(ellipse 120px 60px at 15% 25%,rgba(120,210,255,.14),transparent 70%),
+   radial-gradient(ellipse 160px 70px at 70% 15%,rgba(120,210,255,.12),transparent 70%),
+   radial-gradient(ellipse 140px 60px at 40% 60%,rgba(120,210,255,.10),transparent 70%),
+   radial-gradient(ellipse 180px 80px at 88% 55%,rgba(120,210,255,.10),transparent 70%);
+  animation:causticas 9s ease-in-out infinite alternate}
+@keyframes causticas{0%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,12px) scale(1.08)}100%{transform:translate(-20px,-8px) scale(.96)}}
+
+/* LOS 6 SAZONADORES FLOTANDO EN EL MAR */
+.ring-wrap{position:relative}
+.ring{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 16px;max-width:520px;margin-left:auto}
+.jar3d{position:relative;display:block;border-radius:16px;overflow:hidden;background:#0b1622;text-decoration:none;
+  box-shadow:0 16px 30px rgba(0,0,0,.45);border:2px solid color-mix(in srgb,var(--c) 75%,transparent);
+  opacity:0;animation:entra .8s cubic-bezier(.2,.9,.3,1.3) forwards,boya 5.5s ease-in-out infinite;
+  animation-delay:calc(var(--i)*.15s),calc(.8s + var(--i)*-.9s);transition:box-shadow .2s}
+.jar3d:nth-child(2),.jar3d:nth-child(5){margin-top:34px;margin-bottom:-34px}
+.jar3d img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform .4s}
+.jar3d span{display:block;text-align:center;padding:.45em .3em;background:var(--c);color:#fff;font-family:"Big Shoulders Display",sans-serif;font-weight:800;letter-spacing:.05em;text-transform:uppercase;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jar3d.dk span{color:#071a2e}
+.jar3d:hover{animation-play-state:paused;box-shadow:0 0 0 3px var(--c),0 20px 40px rgba(0,0,0,.5)}
+.jar3d:hover img{transform:scale(1.08)}
+@keyframes entra{from{opacity:0;transform:translateY(60px) scale(.8)}to{opacity:1;transform:none}}
+@keyframes boya{0%,100%{translate:0 0;rotate:-2.5deg}50%{translate:0 -12px;rotate:2.5deg}}
+.ring-shadow{display:none}
+@media(max-width:900px){.ring{max-width:360px;margin:0 auto;gap:12px 10px}.jar3d{border-radius:12px}.jar3d span{font-size:.68rem;letter-spacing:.02em}.jar3d:nth-child(2),.jar3d:nth-child(5){margin-top:22px;margin-bottom:-22px}}
+@media(prefers-reduced-motion:reduce){.jar3d{animation:none;opacity:1}.ring,.ring-wrap,.hero::before,.hero::after{animation:none}}
 
 /* CART */
 .overlay{position:fixed;inset:0;background:rgba(4,14,26,.55);opacity:0;pointer-events:none;transition:.25s;z-index:50}
@@ -247,10 +280,9 @@ footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-
       </div>
       <div class="badges"><span>Artesanal</span><span>Ingredientes naturales</span><span>Envíos a todo México</span></div>
     </div>
-    <div class="pics">
-      <img src="img/dragon.jpg" alt="Dragón de Mar, sal de cítricos">
-      <img src="img/pezdiablo.jpg" alt="Pez Diablo, sal con chiltepín">
-      <img src="img/medusa.jpg" alt="Medusa Gran Roja, sal con jamaica">
+    <div class="ring-wrap" aria-label="Los seis sazonadores">
+      <div class="ring" id="ring"></div>
+      <div class="ring-shadow"></div>
     </div>
   </div>
 </header>
@@ -540,6 +572,7 @@ for(let i=0;i<18;i++){const s=document.createElement("span");const z=6+Math.rand
 const nav=document.getElementById("nav");
 addEventListener("scroll",()=>nav.classList.toggle("solid",scrollY>40));
 
+document.getElementById("ring").innerHTML=P.map((p,i)=>`<a href="#tienda" class="jar3d ${p.dark?'dk':''}" style="--i:${i};--c:${p.color}"><img src="${p.img}" alt="${p.char}"><span>${p.char.replace("Gran Roja","Roja")}</span></a>`).join("");
 renderGrid(); renderPure(); renderCart(); renderTabs("medusa");
 </script>
 </body>
