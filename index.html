@@ -67,10 +67,25 @@ section{padding:70px 0 90px}
 /* STORY */
 .story .wrap{max-width:820px;text-align:center}.story .lead{margin-left:auto;margin-right:auto}
 .story img{border-radius:var(--r);box-shadow:0 24px 50px rgba(7,26,46,.25)}
-.story .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:32px auto 0;max-width:600px}
-.story .fact{background:#fff;border-radius:14px;padding:16px;text-align:center;border:1px solid var(--sand)}
-.story .fact b{display:block;font-family:"Zilla Slab",serif;font-size:1.6rem;color:var(--sea)}
-.story .fact small{color:var(--muted);font-size:.82rem}
+.story .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:36px auto 0;max-width:860px}
+.story .fact{position:relative;overflow:hidden;background:linear-gradient(160deg,#0f3556,#071a2e);color:#fff;border-radius:18px;padding:22px 14px 18px;text-align:center;text-decoration:none;
+  opacity:0;transform:translateY(30px);transition:transform .25s,box-shadow .25s}
+.story .facts.on .fact{animation:factIn .7s cubic-bezier(.2,.9,.3,1.2) forwards;animation-delay:var(--d)}
+@keyframes factIn{to{opacity:1;transform:none}}
+.story .fact::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-26px;height:46px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40'%3E%3Cpath d='M0 20 Q25 5 50 20 T100 20 T150 20 T200 20 V40 H0Z' fill='%23e3b04b' fill-opacity='.18'/%3E%3C/svg%3E") repeat-x 0 0/100px 46px;animation:mini 4s linear infinite}
+@keyframes mini{to{background-position:100px 0}}
+.story .fact:hover{transform:translateY(-6px)!important;box-shadow:0 16px 30px rgba(7,26,46,.3)}
+.story .fi{display:grid;place-items:center;width:58px;height:58px;margin:0 auto 10px;border-radius:50%;background:rgba(227,176,75,.15);color:var(--gold2);transition:transform .3s}
+.story .fi svg{width:30px;height:30px}
+.story .fact:hover .fi{transform:rotate(-10deg) scale(1.12)}
+.story .fact:nth-child(3) .fi svg{animation:maneja 2.4s ease-in-out infinite}
+@keyframes maneja{0%,100%{translate:-2px 0}50%{translate:3px 0}}
+.story .fact:nth-child(4) .fi svg{animation:salta 2s ease-in-out infinite}
+@keyframes salta{0%,100%{translate:0 0}50%{translate:0 -4px}}
+.story .fact b{display:block;font-family:"Zilla Slab",serif;font-size:2.1rem;line-height:1;color:#fff}
+.story .fact small{display:block;color:#bcd2e4;font-size:.85rem;margin-top:4px}
+.story .fact em{display:block;font-style:normal;color:var(--gold2);font-family:"Big Shoulders Display",sans-serif;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.8rem;margin-top:10px;position:relative;z-index:1}
+@media(max-width:700px){.story .facts{grid-template-columns:1fr 1fr;gap:10px}.story .fact b{font-size:1.8rem}}
 @media(max-width:900px){.story .wrap{grid-template-columns:1fr}}
 
 /* PRODUCTS */
@@ -354,11 +369,7 @@ footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-
       <h2>Una tripulación de sabores</h2><div class="anchor-div"><span>⚓</span></div>
       <p class="lead">Cada frasco de Gran Marinero tiene su personaje del mar: una medusa, un dragón, un coral, un pez diablo, Cthulhu y una vaquita marina. Todos parten de sal de mar y la combinamos con ingredientes mexicanos de verdad.</p>
       <p class="lead" style="margin-top:12px">Sirven para ceviches, aguachiles, cortes, fruta y para escarchar tu mezcal o tu michelada. Con una pizca el platillo ya sabe distinto.</p>
-      <div class="facts">
-        <div class="fact"><b>6</b><small>sazonadores</small></div>
-        <div class="fact"><b>100%</b><small>artesanal</small></div>
-        <div class="fact"><b>🇲🇽</b><small>hecho en BCS</small></div>
-      </div>
+      <div class="facts"><a class="fact" href="#tienda" style="--d:0.0s"><span class="fi"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="6" width="22" height="7" rx="2"/><path d="M15 13h18l3 6v19a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4V19z"/><path d="M12 24h24M12 34h24"/></svg></span><b data-n="6">0</b><small>sabores únicos</small><em>Verlos →</em></a><a class="fact" href="#recetas" style="--d:0.12s"><span class="fi"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 40c9 0 14-6 14-14V12M24 40c-9 0-14-6-14-14V12"/><path d="M24 40V18M17 26l7-8 7 8"/><circle cx="24" cy="10" r="3"/></svg></span><b data-n="100" data-s="%">0%</b><small>artesanal, hecho a mano</small><em>Ver recetas →</em></a><a class="fact" href="#envios" style="--d:0.24s"><span class="fi"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h24v20H4zM28 20h9l7 7v5H28z"/><circle cx="12" cy="35" r="4"/><circle cx="36" cy="35" r="4"/></svg></span><b data-n="32">0</b><small>estados con envío</small><em>Ver envíos →</em></a><a class="fact" href="#envios" style="--d:0.36s"><span class="fi"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 44s14-12 14-24a14 14 0 0 0-28 0c0 12 14 24 14 24z"/><path d="M18 20l4-5 3 4 2-2 4 3"/></svg></span><b>BCS</b><small>Baja California Sur</small><em>Entrega local →</em></a></div>
     </div>
   </div>
 </section>
@@ -644,6 +655,13 @@ const bb=document.getElementById("bubbles");
 for(let i=0;i<18;i++){const s=document.createElement("span");const z=6+Math.random()*22;s.style.cssText=`left:${Math.random()*100}%;width:${z}px;height:${z}px;animation-duration:${9+Math.random()*12}s;animation-delay:${-Math.random()*15}s`;bb.appendChild(s);}
 const nav=document.getElementById("nav");
 addEventListener("scroll",()=>nav.classList.toggle("solid",scrollY>40));
+
+// datos animados al entrar en pantalla
+(function(){const f=document.querySelector(".story .facts"); if(!f) return;
+ const go=()=>{f.classList.add("on"); f.querySelectorAll("b[data-n]").forEach(b=>{const n=+b.dataset.n,suf=b.dataset.s||"",t0=performance.now(),dur=1400;
+   const step=t=>{const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3); b.textContent=Math.round(n*e)+suf; if(k<1) requestAnimationFrame(step)}; requestAnimationFrame(step)})};
+ if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){go();io.disconnect()}},{threshold:.3}); io.observe(f)} else go();
+})();
 
 renderGrid();
 if(location.hash&&P.some(x=>"#"+x.id===location.hash)) setTimeout(()=>openProd(location.hash.slice(1)),300); renderPure(); renderCart(); renderTabs("medusa");
