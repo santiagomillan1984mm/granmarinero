@@ -101,6 +101,36 @@ section{padding:70px 0 90px}
 .add{width:100%;justify-content:center;background:var(--c);color:#fff}
 .add.dark{color:var(--navy)}
 
+
+/* TARJETAS COMPACTAS 2x3 + DETALLE */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:900px;margin:0 auto}
+.mini{display:block;background:var(--navy2);border-radius:16px;overflow:hidden;text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.07);transition:transform .2s,box-shadow .2s,border-color .2s}
+.mini:hover{transform:translateY(-5px);border-color:var(--c);box-shadow:0 18px 36px rgba(0,0,0,.4)}
+.mini .ph{position:relative;aspect-ratio:4/3;overflow:hidden}
+.mini .ph img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.mini:hover .ph img{transform:scale(1.06)}
+.mini .chip{position:absolute;top:8px;left:8px;font-family:"Big Shoulders Display",sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.65rem;padding:.3em .7em;border-radius:999px;color:#fff}
+.mini .mb{padding:12px 14px 14px}
+.mini .char{font-family:"Big Shoulders Display",sans-serif;font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:.8rem}
+.mini h3{font-family:"Zilla Slab",serif;font-size:1.05rem;line-height:1.2;margin:.15em 0 .5em;min-height:2.4em}
+.mini .from{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;color:#a9bfd2}
+.mini .from b{color:#fff}.mini .from em{font-style:normal}
+.mini .from span{color:var(--c);font-weight:700}
+@media(max-width:700px){.grid{gap:8px}.mini{border-radius:12px}.mini .ph{aspect-ratio:1}.mini .chip{font-size:.5rem;padding:.25em .5em;top:5px;left:5px}.mini .mb{padding:7px 7px 9px}.mini .char{font-size:.6rem;letter-spacing:.04em}.mini h3{font-size:.75rem;min-height:2.5em}.mini .from{font-size:.68rem;flex-direction:column;align-items:flex-start;gap:2px}}
+.pm{position:fixed;left:50%;top:50%;z-index:60;width:min(780px,94vw);max-height:92vh;overflow:auto;background:var(--navy);color:#fff;border-radius:22px;
+  transform:translate(-50%,-46%) scale(.96);opacity:0;pointer-events:none;transition:.25s;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.pm.on{transform:translate(-50%,-50%);opacity:1;pointer-events:auto}
+.pm-x{position:absolute;top:10px;right:12px;z-index:2;background:rgba(0,0,0,.45);color:#fff;border:0;width:36px;height:36px;border-radius:50%;font-size:1.4rem;cursor:pointer}
+.pmc{display:grid;grid-template-columns:1fr 1.1fr}
+.pm-img img{width:100%;height:100%;object-fit:cover;min-height:300px}
+.pm-body{padding:26px 26px 24px}
+.pm-body .char{font-family:"Big Shoulders Display",sans-serif;font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:.95rem}
+.pm-body h3{font-family:"Zilla Slab",serif;font-size:1.6rem;line-height:1.15;margin:.15em 0 .4em}
+.pm-body p{color:#b4c6d6;font-size:.95rem}
+.pm-order{display:inline-block;background:rgba(245,210,122,.15);color:var(--gold2);font-size:.78rem;padding:.3em .8em;border-radius:999px;margin-bottom:10px}
+.pm-link{display:block;text-align:center;margin-top:12px;color:var(--gold2);font-size:.9rem}
+@media(max-width:640px){.pmc{grid-template-columns:1fr}.pm-img img{min-height:0;aspect-ratio:4/3}.pm-body{padding:18px}}
+
 /* SAL PURA */
 .pure{background:linear-gradient(180deg,var(--cream),var(--sand) 50%,var(--cream))}
 .pure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
@@ -308,7 +338,7 @@ footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-
     <div class="center">
       <div class="eyebrow">Tienda</div>
       <h2>Elige tu sazonador</h2><div class="anchor-div"><span>⚓</span></div>
-      <p class="lead">Frascos de 60 g y presentaciones de 250 g. Los marcados como “sobre pedido” se preparan frescos y salen en 3 días.</p>
+      <p class="lead">Toca un sabor para ver tamaños, precio y cómo usarlo.</p>
     </div>
     <div class="filters" id="filters">
       <button class="on" data-f="all">Todos</button>
@@ -398,7 +428,8 @@ footer .copy{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-
 
 <a class="wa-float" href="https://wa.me/526121500792?text=Hola%20Gran%20Marinero%2C%20quiero%20informes" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
 
-<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="overlay" id="overlay" onclick="closeCart();closeProd()"></div>
+<div class="pm" id="pm" role="dialog" aria-modal="true"><button class="pm-x" onclick="closeProd()" aria-label="Cerrar">×</button><div id="pmc" class="pmc"></div></div>
 <aside class="drawer" id="drawer" aria-label="Carrito">
   <div class="dh"><h3>Tu pedido</h3><button onclick="closeCart()" aria-label="Cerrar">×</button></div>
   <div class="dbody">
@@ -469,24 +500,35 @@ const sel = {};
 
 function renderGrid(f="all"){
   const g = document.getElementById("grid");
-  g.innerHTML = P.filter(p=>f==="all"||p.tags.includes(f)).map(p=>{
-    const s = sel[p.id] ?? 0;
-    return `<article class="card" style="--c:${p.color}">
+  g.innerHTML = P.filter(p=>f==="all"||p.tags.includes(f)).map(p=>`<a href="#${p.id}" class="mini" style="--c:${p.color}" onclick="openProd('${p.id}');return false">
       <div class="ph"><img src="${p.img}" alt="${p.char}">
-        <span class="chip" style="background:${p.color}">${p.heat? "🌶".repeat(p.heat):"Sin picante"}</span>
-        ${p.order?'<span class="order">Sobre pedido · 3 días</span>':''}</div>
-      <div class="body">
-        <div class="char" style="color:${p.color}">${p.char}</div>
+        <span class="chip" style="background:${p.color}">${p.heat? "🌶".repeat(p.heat):"Sin picante"}</span></div>
+      <div class="mb"><div class="char" style="color:${p.color}">${p.char}</div>
         <h3>${p.name}</h3>
-        <p>${p.desc}</p>
-        <div class="heat">Picor ${[0,1,2,3].map(i=>`<i class="${i<p.heat?'f':''}"></i>`).join("")}</div>
-        <div class="sizes">${p.sizes.map((z,i)=>`<button class="${i===s?'on':''}" onclick="pick('${p.id}',${i})">${z[0]}<b>${money(z[1])}</b></button>`).join("")}</div>
-        <button class="btn add ${p.dark?'dark':''}" onclick="addP('${p.id}')">Agregar al carrito</button>
-      </div></article>`;
-  }).join("");
+        <div class="from"><em>Desde <b>${money(p.sizes[0][1])}</b></em><span>Ver →</span></div></div></a>`).join("");
 }
+function prodHTML(p){
+  const s = sel[p.id] ?? 0;
+  return `<div class="pm-img"><img src="${p.img}" alt="${p.char}"></div>
+   <div class="pm-body" style="--c:${p.color}">
+    <div class="char" style="color:${p.color}">${p.char}</div>
+    <h3>${p.name}</h3>
+    ${p.order?'<div class="pm-order">Sobre pedido · listo en 3 días</div>':''}
+    <p>${p.desc}</p>
+    <div class="heat">Picor ${[0,1,2,3].map(i=>`<i class="${i<p.heat?'f':''}"></i>`).join("")}</div>
+    <div class="sizes">${p.sizes.map((z,i)=>`<button class="${i===s?'on':''}" onclick="pick('${p.id}',${i})">${z[0]}<b>${money(z[1])}</b></button>`).join("")}</div>
+    <button class="btn add ${p.dark?'dark':''}" onclick="addP('${p.id}');closeProd()">Agregar al carrito</button>
+    <a href="#recetas" class="pm-link" onclick="closeProd();renderTabs('${p.id}')">Ver 5 formas de usarla →</a>
+   </div>`;
+}
+let curProd=null;
+function openProd(id){ curProd=P.find(x=>x.id===id); document.getElementById("pmc").innerHTML=prodHTML(curProd);
+  document.getElementById("pm").classList.add("on"); document.getElementById("overlay").classList.add("on");
+  try{history.replaceState(null,"","#"+id)}catch(e){} }
+function closeProd(){ document.getElementById("pm").classList.remove("on"); if(!document.getElementById("drawer").classList.contains("on")) document.getElementById("overlay").classList.remove("on");
+  try{history.replaceState(null,"","#tienda")}catch(e){} }
 let curF="all";
-function pick(id,i){ sel[id]=i; renderGrid(curF); }
+function pick(id,i){ sel[id]=i; if(curProd&&curProd.id===id) document.getElementById("pmc").innerHTML=prodHTML(curProd); }
 document.getElementById("filters").addEventListener("click",e=>{
   const b=e.target.closest("button"); if(!b) return;
   document.querySelectorAll("#filters button").forEach(x=>x.classList.toggle("on",x===b));
@@ -571,8 +613,9 @@ for(let i=0;i<18;i++){const s=document.createElement("span");const z=6+Math.rand
 const nav=document.getElementById("nav");
 addEventListener("scroll",()=>nav.classList.toggle("solid",scrollY>40));
 
-document.getElementById("ring").innerHTML=P.map((p,i)=>`<a href="#tienda" class="jar3d ${p.dark?'dk':''}" style="--i:${i};--c:${p.color}"><img src="${p.img}" alt="${p.char}"><span>${p.char.replace("Gran Roja","Roja").replace("Vaquita Marina","Vaquita")}</span></a>`).join("");
-renderGrid(); renderPure(); renderCart(); renderTabs("medusa");
+document.getElementById("ring").innerHTML=P.map((p,i)=>`<a href="#${p.id}" onclick="openProd('${p.id}');return false" class="jar3d ${p.dark?'dk':''}" style="--i:${i};--c:${p.color}"><img src="${p.img}" alt="${p.char}"><span>${p.char.replace("Gran Roja","Roja").replace("Vaquita Marina","Vaquita")}</span></a>`).join("");
+renderGrid();
+if(location.hash&&P.some(x=>"#"+x.id===location.hash)) setTimeout(()=>openProd(location.hash.slice(1)),300); renderPure(); renderCart(); renderTabs("medusa");
 </script>
 </body>
 </html>
